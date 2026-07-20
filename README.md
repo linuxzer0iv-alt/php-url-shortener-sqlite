@@ -69,6 +69,28 @@ Jika masih bisa diakses/didownload, berarti `mod_rewrite`/`mod_authz_core` tidak
 hosting Anda — hubungi provider hosting untuk mengaktifkannya, karena ini krusial untuk
 keamanan data.
 
+## Seeder (Data Contoh)
+
+Ada `public_html/seed.php` untuk mengisi database dengan beberapa data contoh (permanen,
+expired, custom slug, auto slug) — berguna untuk testing awal setelah deploy.
+
+**Lewat CLI** (kalau hosting punya SSH/Terminal cPanel):
+
+```bash
+cd public_html
+php seed.php          # tambah data contoh
+php seed.php reset    # kosongkan tabel dulu, baru isi ulang
+```
+
+**Lewat browser** (kalau tidak ada akses SSH):
+
+1. Buka `public_html/seed.php`, ganti nilai konstanta `SEED_KEY` dengan key rahasia sendiri.
+2. Upload, lalu akses: `https://domain-anda.com/seed.php?key=KEY_RAHASIA_ANDA`
+   (tambahkan `&reset=1` untuk mengosongkan dulu sebelum isi ulang).
+3. **Setelah selesai, WAJIB hapus file `seed.php` dari server** — jangan dibiarkan
+   nongkrong permanen karena bisa dipakai siapa saja untuk mengubah isi database kalau
+   key-nya bocor/ditebak.
+
 ## Cara Pakai (Web UI)
 
 1. Buka halaman utama (`index.php`).
