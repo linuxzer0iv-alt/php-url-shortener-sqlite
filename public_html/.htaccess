@@ -1,0 +1,29 @@
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Biarkan file/folder yang benar-benar ada diakses secara normal
+    # (index.php, api/, assets/, redirect.php, dll)
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # domain.com/abc123  ->  redirect.php?slug=abc123 (tanpa query string terlihat di address bar)
+    RewriteRule ^([A-Za-z0-9_-]{3,32})/?$ redirect.php?slug=$1 [L,QSA]
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Jangan tampilkan isi direktori
+Options -Indexes
+
+# Blok akses langsung ke file PHP di dalam includes/ lewat browser
+<IfModule mod_rewrite.c>
+    RewriteRule ^includes/ - [F,L]
+</IfModule>

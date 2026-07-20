@@ -1,0 +1,16 @@
+# WAJIB: blokir semua akses langsung dari browser ke folder ini
+# supaya file links.sqlite tidak bisa didownload / dibaca lewat URL.
+
+# Apache 2.4+
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+
+# Apache 2.2 (fallback, sebagian shared hosting masih pakai ini)
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>
+
+# Extra safety net: matikan directory listing juga
+Options -Indexes

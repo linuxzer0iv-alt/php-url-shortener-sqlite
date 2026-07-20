@@ -1,0 +1,12 @@
+# Runtime database (auto-created on first request, should not be committed)
+public_html/database/*.sqlite
+public_html/database/*.sqlite-journal
+public_html/database/*.sqlite-shm
+public_html/database/*.sqlite-wal
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
